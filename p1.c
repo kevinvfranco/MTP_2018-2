@@ -18,8 +18,8 @@ int main(){
         estado = estado_if;
     }
     if(estado == 0)
-        printf("O numero digitado e multiplo de 3");
+        printf("%s eh multiplo de 3",bits);
     else
-        printf("O numero digitado nao e multiplo de 3");
+        printf("%s nao eh multiplo de 3",bits);
     return 0;
 }
