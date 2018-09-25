@@ -203,15 +203,15 @@ int main(){
 		case 5:
 			printf("Informe um número decimal: ");
 			scanf("%d", &numero);
-            cont = decimal_binario(bits, numeros, numero, cont);
-            cont = vetor_string(bits, numeros, cont);
+            		cont = decimal_binario(bits, numeros, numero, cont);
+            		cont = vetor_string(bits, numeros, cont);
 			printf("\n	O número em binário é: %s \n", bits);
 			break;
 		case 6:
 			printf("Informe um número decimal: ");
 			scanf("%d", &numero);
-            cont = decimal_hexadecimal(bits, numeros, numero, cont);
-            cont = vetor_string(bits, numeros, cont);
+            		cont = decimal_hexadecimal(bits, numeros, numero, cont);
+            		cont = vetor_string(bits, numeros, cont);
 			printf("\n	O número em hexadecimal é: %s \n", bits);
 			break;
 		case 7:
