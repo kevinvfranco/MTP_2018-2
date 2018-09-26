@@ -1,4 +1,4 @@
-/* P1.c */
+/* P2.c */
 /* Kevin Vinicius Franco */
 /* 11811EEL007 */
 #include <stdio.h>
