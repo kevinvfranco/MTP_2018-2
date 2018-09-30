@@ -3,21 +3,8 @@
 /* 11811EEL007 */
 #include <stdio.h>
 
-int binario_decimal(char bits[], int numeros[], int cont){
-	int j, k, numero = 0, potencia;
-	cont--;
-	for(j = cont; j >= 0 ; j--){
-		potencia = 1;
-		for(k = cont; k > j; k--)
-			potencia *= 2;
-		numero = numero + potencia * numeros[j];
-	}
-	sprintf(bits, "%d", numero);
-	return numero;
-}
-
-int decimal_hexadecimal(char bits[], int numeros[], int numero, int cont){
-    int divisor = 16, quociente = 1;
+int decimal_to(int numeros[], int numero, int cont, int divisor){
+    int quociente = 1;
     for(cont = 0; quociente != 0; cont++){
         numeros[cont] = numero%divisor;
         quociente = numero/divisor;
@@ -27,55 +14,19 @@ int decimal_hexadecimal(char bits[], int numeros[], int numero, int cont){
     return cont;
 }
 
-int hexadecimal_decimal(char bits[], int numeros[], int numero, int cont){
+int to_decimal(char bits[], int numeros[], int numero, int cont, int base){
     int j, k, potencia;
     cont--;
     for(j = cont; j >= 0; j--){
 		potencia = 1;
 		for(k = cont; k > j; k--)
-			potencia *= 16;
+			potencia *= base;
 		numeros[j] = numeros[j]*potencia;
 	}
 	for(j = 0; j <= cont; j++)
         numero = numero + numeros[j];
 	sprintf(bits, "%d", numero);
 	return numero;
-}
-
-int decimal_binario(char bits[], int numeros[], int numero, int cont){
-    int condicao = 1;
-    for(cont = 0; condicao != 0; cont++){
-        numeros[cont] = numero%2;
-        condicao = numero / 2;
-        numero = numero / 2;
-    }
-    cont--;
-    return cont;
-}
-
-int decimal_octal(int numeros[], int numero, int cont){
-    int divisor = 8, quociente = 1;
-    for(cont = 0; quociente != 0; cont++){
-        numeros[cont] = numero%divisor;
-        quociente = numero/divisor;
-        numero = numero/divisor;
-    }
-    cont--;
-    return cont;
-}
-
-void octal_decimal(char bits[], int numeros[], int numero, int cont){
-    int j, k, potencia;
-    cont--;
-    for(j = cont; j >= 0; j--){
-		potencia = 1;
-		for(k = cont; k > j; k--)
-			potencia *= 8;
-		numeros[j] = numeros[j]*potencia;
-	}
-	for(j = 0; j <= cont; j++)
-        numero = numero + numeros[j];
-	sprintf(bits, "%d", numero);
 }
 
 int string_vetor(char bits[], int numeros[], int cont){
@@ -157,7 +108,7 @@ int vetor_string(char bits[], int numeros[], int cont){
 }
 
 int main(){
-	int numero, opcao, numeros[255], cont = 0;
+	int numero, opcao, numeros[255], cont;
 	char bits[256];
 	printf("\nEscolha uma das opções: \n 1. Binário para Decimal \n 2. Binário para Hexadecimal");
 	printf("\n 3. Hexadecimal para Decimal \n 4. Hexadecimal para Binário \n 5. Decimal para Binário");
@@ -172,15 +123,15 @@ int main(){
 			printf("Informe um número binário: ");
 			scanf("%s", bits);
 			cont = string_vetor(bits, numeros, cont);
-			numero = binario_decimal(bits, numeros, cont);
+			numero = to_decimal(bits, numeros, numero, cont, 2);
 			printf("\n	O número em decimal é: %s \n", bits);
 			break;
 		case 2:
 			printf("Informe um número binário: ");
 			scanf("%s", bits);
 			cont = string_vetor(bits, numeros, cont);
-			numero = binario_decimal(bits, numeros, cont);
-			cont = decimal_hexadecimal(bits, numeros, numero, cont);
+			numero = to_decimal(bits, numeros, numero, cont, 2);
+			cont = decimal_to(numeros, numero, cont, 16);
 			cont = vetor_string(bits, numeros, cont);
 			printf("\n	O número em hexadecimal é: %s \n", bits);
 			break;
@@ -188,43 +139,43 @@ int main(){
 			printf("Informe um número hexadecimal: ");
 			scanf("%s", bits);
 			cont = string_vetor(bits, numeros, cont);
-			numero = hexadecimal_decimal(bits, numeros, numero, cont);
+			numero = to_decimal(bits, numeros, numero, cont, 16);
 			printf("\n	O número em decimal é: %s \n", bits);
 			break;
 		case 4:
 			printf("Informe um número hexadecimal: ");
 			scanf("%s", bits);
 			cont = string_vetor(bits, numeros, cont);
-			numero = hexadecimal_decimal(bits, numeros, numero, cont);
-			cont = decimal_binario(bits, numeros, numero, cont);
+			numero = to_decimal(bits, numeros, numero, cont, 16);
+			cont = decimal_to(numeros, numero, cont, 2);
 			cont = vetor_string(bits, numeros, cont);
 			printf("\n	O número em binário é: %s \n", bits);
 			break;
 		case 5:
 			printf("Informe um número decimal: ");
 			scanf("%d", &numero);
-            		cont = decimal_binario(bits, numeros, numero, cont);
-            		cont = vetor_string(bits, numeros, cont);
+            cont = decimal_to(numeros, numero, cont, 2);
+            cont = vetor_string(bits, numeros, cont);
 			printf("\n	O número em binário é: %s \n", bits);
 			break;
 		case 6:
 			printf("Informe um número decimal: ");
 			scanf("%d", &numero);
-            		cont = decimal_hexadecimal(bits, numeros, numero, cont);
-            		cont = vetor_string(bits, numeros, cont);
+            cont = decimal_to(numeros, numero, cont, 16);
+            cont = vetor_string(bits, numeros, cont);
 			printf("\n	O número em hexadecimal é: %s \n", bits);
 			break;
 		case 7:
 			printf("Informe um número octal: ");
 			scanf("%s", bits);
 			cont = string_vetor(bits, numeros, cont);
-			octal_decimal(bits, numeros, numero, cont);
+			numero = to_decimal(bits, numeros, numero, cont, 8);
 			printf("\n	O número em decimal é: %s \n", bits);
 			break;
 		case 8:
 			printf("Informe um número decimal: ");
 			scanf("%d", &numero);
-			cont = decimal_octal(numeros, numero, cont);
+			cont = decimal_to(numeros, numero, cont, 8);
 			cont = vetor_string(bits, numeros, cont);
 			printf("\n	O número em octal é: %s \n", bits);
 			break;
