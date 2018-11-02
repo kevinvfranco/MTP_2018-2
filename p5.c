@@ -10,13 +10,6 @@ typedef
     struct LCG{Bytes8 a, c, m, rand_max, atual;}
 LCG;
 
-double lcg_rand_01(LCG * r);
-void semente(LCG * r, Bytes8 seed);
-Bytes8 lcg_rand(LCG * r);
-double lcg_rand_01(LCG * r);
-void gera_numeros(float * vetor, int tam, float min, float max, LCG * r);
-
-
 void semente(LCG * r, Bytes8 seed){
     r->a = 0x5DEECE66DULL;
     r->c = 11ULL;
