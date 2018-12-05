@@ -21,7 +21,7 @@ ponto * gerar_pontos(int N) {
 
 void mostrar_pontos(ponto * p_ini, ponto * p_fim) {
     if(p_ini < p_fim) {
-        printf("x: %.3lf, y: %.3lf\n", p_ini->x, p_ini->y);
+        printf("(%.3lf, %.3lf) ", p_ini->x, p_ini->y);
         mostrar_pontos(p_ini+1, p_fim);
     }
 }
