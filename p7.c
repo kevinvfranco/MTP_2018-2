@@ -61,13 +61,14 @@ int main(){
     if(opc == 2) {
         coordenadas = le_pontos("pontos.dat", &N);
         mostrar_pontos(coordenadas, coordenadas + N);
-    } else {
+    } else if(opc == 1) {
         printf("Digite o número de pontos: ");
 		scanf("%u", &N); getchar();
         coordenadas = gerar_pontos(N);
         grava_pontos(coordenadas, N);
         printf("Arquivo gravado");
-    }
+    } else
+	    printf("Opção Inválida");
     free(coordenadas);
     return 0;
 }
